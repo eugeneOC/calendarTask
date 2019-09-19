@@ -1,0 +1,86 @@
+{
+  "name": "Lead",
+  "plural": "leads",
+  "base": "BaseModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "Computed": {
+      "properties": {
+        "fullAddress": "showFullAddress",
+        "name": "showFullName",
+        "sourceInfo": "showSourceInfo",
+        "statusInfo": "showStatusInfo",
+        "industryInfo": "showIndustryInfo"
+      }
+    },
+    "DeleteHistory": true
+  },
+  "scope": {
+    "include": ["notes", "events"]
+  },
+  "properties": {
+    "companyName": {
+      "type": "string"
+    },
+    "interest": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string"
+    },
+    "fullAddress": {
+      "type": "string"
+    },
+    "upcomingEvents": {
+      "type": "array"
+    },
+    "pastEvents": {
+      "type": "array"
+    },
+    "isConverted": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "contact": {
+      "type": "embedsOne",
+      "model": "BaseContact",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },
+    "status": {
+      "type": "belongsTo",
+      "model": "LeadStatus",
+      "foreignKey": ""
+    },
+    "source": {
+      "type": "belongsTo",
+      "model": "LeadSource",
+      "foreignKey": ""
+    },
+    "industry": {
+      "type": "belongsTo",
+      "model": "LeadIndustry",
+      "foreignKey": ""
+    },
+    "events": {
+      "type": "hasMany",
+      "model": "Event",
+      "polymorphic": "eventable"
+    },
+    "notes": {
+      "type": "hasMany",
+      "model": "Note",
+      "polymorphic": "noteable"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
