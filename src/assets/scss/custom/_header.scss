@@ -1,0 +1,254 @@
+/*======== Header Scss ========*/
+
+.app-header {
+  .rct-header {
+    background: $navbar-bg;
+    z-index: -9 !important;
+    box-shadow: $hoz-sub-menu-box-shadow;
+    .site-logo {
+      padding: 0.75rem 2rem 0.75rem 0;
+      width: $navbar-icon-width;
+    }
+    .navbar-left {
+      margin-left: 0.85rem;
+    }
+    .app-bar-right {
+      text-align: right;
+      min-width: $navbar-icon-width;
+    }
+  }
+}
+
+.header-icon {
+  height: $navbar-icon-height;
+  width: $navbar-icon-width;
+  @include border(1px solid, $input-border-color, top bottom left right);
+  border-radius: $border-radius;
+  line-height: $navbar-icon-height;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 1.25rem; //20px;
+  transition: all 0.5s ease 0s;
+  color: $gray-600;
+  &:hover,
+  &:focus,
+  &.active {
+    border-color: $primary !important;
+    color: $primary !important;
+    a {
+      color: $primary;
+    }
+  }
+}
+
+.notification-dropdown {
+  .dropdown-menu {
+    left: -19.5rem !important;
+    background-color: $base-light;
+    width: 300px;
+    &.show {
+      transform: translate3d(55px, 35px, 0px) !important;
+    }
+    .dropdown-top {
+      padding: 0.5rem 0.8rem;
+    }
+    .dropdown-list {
+      background: transparent !important;
+      li {
+        display: inline-block;
+        width: 46.5%;
+        box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.02);
+        margin: 0.3125rem;
+        background-color: $white;
+        a {
+          height: 48px;
+          display: flex;
+          align-items: center;
+          padding: 0 1rem;
+          span {
+            font-size: $font-size-sm;
+            transition: color 0.3s ease;
+            color: $body-color;
+          }
+        }
+        &:hover {
+          a span {
+            color: $primary !important;
+          }
+          background-color: $white !important;
+        }
+      }
+    }
+  }
+}
+
+.quickadd-dropdown {
+  .dropdown-menu {
+    left: -19.5rem !important;
+    background-color: $base-light;
+    width: 160px;
+    &.show {
+      transform: translate3d(200px, 30px, 0px) !important;
+    }
+    .dropdown-top {
+      padding: 0.5rem 0.8rem;
+    }
+    .dropdown-list {
+      background: transparent !important;
+      li {
+        display: block;
+        box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.02);
+        margin: 0.3125rem;
+        background-color: $white;
+        border-radius: 5px;
+        a {
+          height: 40px;
+          display: flex;
+          align-items: center;
+          padding: 0 1rem;
+          span {
+            font-size: $font-size-sm;
+            transition: color 0.3s ease;
+            color: $body-color;
+          }
+        }
+        &:hover {
+          a span {
+            color: $primary !important;
+          }
+          background-color: $white !important;
+        }
+      }
+    }
+  }
+}
+
+.notification-dropdown {
+  .dropdown-menu {
+    .dropdown-list {
+      li {
+        width: 97% !important;
+        padding: 0.75rem;
+        a {
+          padding: 0;
+          height: auto !important;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 320px) {
+  .rct-header {
+    &.mui-fixed {
+      left: 0;
+    }
+  }
+  .rct-app-content {
+    width: 100% !important;
+  }
+}
+
+/*========== User Drawer ============*/
+.user-drawer {
+  height: 100%;
+  min-width: 250px;
+  hr {
+    margin: 0px;
+  }
+  .top-drawer {
+    top: 0;
+    margin-top: 20px;
+    padding: 15px 40px;
+  }
+  .user-drawer-content {
+    padding: 15px 40px;
+  }
+  .drawer-actions {
+    button {
+      width: 100%;
+      color: $gray-700;
+      font-size: 0.9rem;
+      padding: 20px 16px;
+      svg {
+        margin-right: 10px;
+        font-size: 1.2rem;
+      }
+    }
+  }
+  .drawer-footer {
+    border-top: 1px $gray-600;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+}
+
+/*======= Responsive ========*/
+
+@media (max-width: 724px) {
+  .app-horizontal {
+    .app-header {
+      .site-logo {
+        padding: 0.8rem 0rem !important;
+        img {
+          width: 80px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .app-main-container {
+    > div {
+      > div {
+        box-shadow: none !important;
+      }
+    }
+  }
+  .notification-dropdown,
+  .language-dropdown,
+  .cart-dropdown {
+    .dropdown-menu {
+      width: 280px !important;
+      left: -16rem !important;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .language-dropdown {
+    .dropdown-menu {
+      left: -8rem !important;
+    }
+  }
+  .notification-dropdown {
+    .dropdown-menu {
+      left: -13rem !important;
+    }
+  }
+}
+
+/*============ Mobile Sidebar Layout ===========*/
+
+.hamburger {
+  display: none !important;
+}
+
+/*========= Responsive ==========*/
+@media (max-width: 900px) and (min-width: 320px) {
+  .hamburger {
+    display: flex !important;
+  }
+  .user-drawer {
+    .top-drawer {
+      padding: 15px 20px !important;
+    }
+    .nav-link {
+      color: $hoz-nav-link-color;
+    }
+  }
+}
