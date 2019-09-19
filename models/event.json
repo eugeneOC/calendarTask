@@ -1,0 +1,50 @@
+{
+  "name": "Event",
+  "plural": "events",
+  "base": "BaseModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true,
+    "strictObjectIDCoercion": true
+  },
+  "scope": {
+    "order": "createdAt DESC"
+  },
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "start": {
+      "type": "date",
+      "required": true
+    },
+    "end": {
+      "type": "date",
+      "required": true
+    },
+    "desc": {
+      "type": "string",
+      "required": false
+    },
+    "location": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string"
+    },
+    "allDay": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "eventable": {
+      "type": "belongsTo",
+      "polymorphic": true
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
