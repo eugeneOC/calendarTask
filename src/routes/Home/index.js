@@ -29,7 +29,7 @@ class Calendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      calendarView: "month",
+      calendarView: "week",
       showPop: false,
       component: null,
       x: 0,
@@ -103,7 +103,7 @@ class Calendar extends Component {
                 style={{ position: "relative" }}
                 selectable
                 events={showEvents}
-                views={["month"]}
+                views={["month", "week", "day"]}
                 onSelectEvent={slotSelected =>
                   this.renderEventPopover(slotSelected)
                 }
