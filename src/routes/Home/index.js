@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { show } from "redux-modal";
 
 import BigCalendar from "react-big-calendar";
+import Views from "react-big-calendar";
 import moment from "moment";
 
 // Calendar Components
@@ -21,6 +22,8 @@ import { getAllEvents, addEvent } from "Actions";
 import Popover from "@material-ui/core/Popover";
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
+
+let allViews = Object.keys(Views).map(k => Views[k]) 
 
 class Calendar extends Component {
   constructor(props) {

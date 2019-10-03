@@ -18,6 +18,7 @@ import App from "./container/App";
 import { store } from "./redux/store";
 
 const MainApp = () => (
+	// <div></div>
   <Provider store={store}>
     <MuiPickersUtilsProvider utils={MomentUtils} moment={moment}>
       <Router>

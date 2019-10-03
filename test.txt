@@ -1,0 +1,8 @@
+BASE_URL: https://staging-api.everydaycrm.sg/api
+Create: /events (POST)
+Get all: /events (GET)
+View one: /events/:id (GET)
+update one: /events/:id (PATCH)
+delete: /events/:id (DELETE)
+
+Btw if you need an access token use this: DE17DMHS2xbJBhAECNk7lJ6hGIN7Jpc1xqHRYfNgvCedp86SExdH08CZ17JqPmBB

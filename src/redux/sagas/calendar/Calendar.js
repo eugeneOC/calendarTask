@@ -9,9 +9,10 @@ import api from "Api";
 //=========================
 const getAllEventsRequestWithFilter = async (start, end, id) => {
   try {
-    const result = await api.get(
-      `events?filter[where][userId]=${id}&filter[where][end][gt]=${start}&filter[where][end][lt]=${end}&filter[order]=start ASC&`
-    );
+    const result = await api.get("/events");
+    // const result = await api.get(
+    //   `/events?filter[where][userId]=${id}&filter[where][end][gt]=${start}&filter[where][end][lt]=${end}&filter[order]=start ASC&`
+    // );
 
     return result.data;
   } catch (err) {

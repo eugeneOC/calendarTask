@@ -4,7 +4,7 @@
   "description": "tasks",
   "scripts": {
     "start": "npm run dev",
-    "dev": "webpack-dev-server --env.API_URL=http://localhost:3001/api  --mode development --inline --progress"
+    "dev": "webpack-dev-server --env.API_URL=https://staging-api.everydaycrm.sg/api  --mode development --inline --progress"
   },
   "keywords": [
     "reactjs"

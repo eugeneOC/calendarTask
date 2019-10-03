@@ -24,20 +24,17 @@ const CalendarToolbar = toolbar => {
     <React.Fragment>
       <div className="toolbar-container mb-10">
         <div className="row justify-content-between">
-          <div className="col-md-4">
+          <div className="col-md-4 text-left">
             <div>
-              <Chip
-                label={
-                  convertDay(today.getDay()) +
-                  " - " +
-                  today.getDate() +
-                  " / " +
-                  convertMonth(today.getMonth()) +
-                  " / " +
-                  today.getFullYear()
-                }
-                className="bg-white border"
-              />
+              <Button variant="outlined" onClick={goToBack}>
+                Month
+              </Button>
+              <Button variant="outlined" onClick={goToToday}>
+                Week
+              </Button>
+              <Button variant="outlined" onClick={goToNext}>
+                Day
+              </Button>
             </div>
           </div>
           <div className="col-md-4">
@@ -68,8 +65,14 @@ const CalendarToolbar = toolbar => {
           </div>
           <div className="col-md-4 text-right">
             <div>
+              <Button variant="outlined" onClick={goToBack}>
+                Back
+              </Button>
               <Button variant="outlined" onClick={goToToday}>
                 Today
+              </Button>
+              <Button variant="outlined" onClick={goToNext}>
+                Next
               </Button>
             </div>
           </div>
