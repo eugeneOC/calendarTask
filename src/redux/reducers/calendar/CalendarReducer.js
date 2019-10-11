@@ -21,6 +21,7 @@ const INIT_STATE = {
 
 export default (state = INIT_STATE, action) => {
   let showEvents = [...state.showEvents];
+  // console.log("+++++++++++",action.type);
 
   switch (action.type) {
     /**

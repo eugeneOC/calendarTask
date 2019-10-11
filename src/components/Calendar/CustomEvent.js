@@ -6,7 +6,6 @@ const CustomEvent = props => {
     <div className="d-flex">
       <span className="rbc-event-bg"></span>
       <div className="mx-10 w-100 d-flex justify-content-between">
-
       </div>
     </div>
   );
