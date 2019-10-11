@@ -37,23 +37,26 @@ class NewEventForm extends Component {
   }
 
   OnBlurValidation = () => {
-    let state = { ...this.state.event };
+    let state = { ...this.state };
     if (state.start == "" || state.end == "") {
-      this.props.handleRegErrorForm(
-        "Either you have set the start or end time set wrongly or you have not set a start and end time"
-      );
+      alert("Either you have set the start or end time set wrongly or you have not set a start and end time");
+      // this.props.handleRegErrorForm(
+      //   "Either you have set the start or end time set wrongly or you have not set a start and end time"
+      // );
       return false;
     }
     if (new Date(state.start) > new Date(state.end)) {
-      this.props.handleRegErrorForm(
-        "Your start date and time is later than your end date and time, please adjust the correct date and time"
-      );
+      alert("Your start date and time is later than your end date and time, please adjust the correct date and time");
+      // this.props.handleRegErrorForm(
+      //   "Your start date and time is later than your end date and time, please adjust the correct date and time"
+      // );
       return false;
     }
     if (state.title == "") {
-      this.props.handleRegErrorForm(
-        "Invalid title for your event, set a longer title to define your event"
-      );
+      alert("Invalid title for your event, set a longer title to define your event");
+      // this.props.handleRegErrorForm(
+      //   "Invalid title for your event, set a longer title to define your event"
+      // );
       return false;
     }
     return true;
