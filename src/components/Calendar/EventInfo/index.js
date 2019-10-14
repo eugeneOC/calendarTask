@@ -27,7 +27,7 @@ class EventInfoDialog extends Component {
   onDelete(id) {
     window.alert("Delete this event?");
     this.props.deleteEvent(id);
-    this.props.handleClose();
+    // this.props.handleClose();
   }
 
   submitEdit = () => {

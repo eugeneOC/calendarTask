@@ -19,7 +19,10 @@ import EventInfo from "Components/Calendar/EventInfo";
 import NewEventForm from "Components/Form/Calendar/NewEventForm";
 
 import { getAllEvents, addEvent } from "Actions";
+// import { filterChange } from "Com"
 import Popover from "@material-ui/core/Popover";
+
+import "../../assets/styles.css";
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
 
@@ -40,10 +43,15 @@ class Calendar extends Component {
     this.onMouseDownCapture = this.onMouseDownCapture.bind(this);
     this.newEvent = this.newEvent.bind(this);
     this.closePopover = this.closePopover.bind(this);
+    this.filterChange = this.filterChange.bind(this);
   }
 
   componentDidMount() {
     this.props.getAllEvents();
+  }
+
+  filterChange(event) {
+    // this.props
   }
 
   // create new event

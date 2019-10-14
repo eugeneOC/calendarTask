@@ -8,11 +8,18 @@ import { Button, Switch, FormControlLabel } from "@material-ui/core";
 
 function EditableEventInfo(props) {
   const { info, onDelete, editField, toggleEdit, submitEdit } = props;
-  const { id, start, end, title, desc, allDay } = info;
+  const { id, start, end, title, desc, allDay, location } = info;
   return (
     <React.Fragment>
       <h3>Edit Event Details</h3>
       <form autoComplete="off">
+        <FormInput
+          label="Title"
+          value={title}
+          target="title"
+          handleChange={editField}
+          required={!title}
+        />
         <div className="row">
           <div className="col">
             {allDay ? (
@@ -68,21 +75,25 @@ function EditableEventInfo(props) {
             className="mb-0"
           />
         </div>
-        <FormInput
-          label="Title"
-          value={title}
-          target="title"
-          handleChange={editField}
-          required={!title}
-        />
-        <FormInput
-          label="Description"
-          value={desc}
-          target="desc"
-          handleChange={editField}
-          multiline
-          rows={3}
-        />
+        <div className="row">
+          <div className="col-6">
+            <FormInput
+              label="Location"
+              value={location}
+              target="location"
+              handleChange={editField}
+            />            
+          </div>
+          <div className="col-6">
+            <FormInput
+              label="Description"
+              value={desc}
+              target="desc"
+              handleChange={editField}
+            />
+          </div>
+        </div>
+
         <div className="row justify-content-between mt-20">
           <div>
             <Button

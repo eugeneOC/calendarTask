@@ -19,9 +19,11 @@ const INIT_STATE = {
   eventsLoading: false
 };
 
+let allShowEvents = [];
+
 export default (state = INIT_STATE, action) => {
   let showEvents = [...state.showEvents];
-  // console.log("+++++++++++",action.type);
+  // console.log("+++++++++++showEvents",showEvents);
 
   switch (action.type) {
     /**
@@ -33,6 +35,8 @@ export default (state = INIT_STATE, action) => {
         eventsLoading: true
       };
     case Types.GET_ALL_EVENTS_SUCCESS:
+      NotificationManager.success("All events are loaded!");
+      allShowEvents = action.payload.myEvents;
       return {
         ...state,
         allEvents: action.payload.events,
@@ -50,15 +54,31 @@ export default (state = INIT_STATE, action) => {
     /**
      * Add Event
      */
+    case Types.GET_EVENT_SEARCH:
+      let searchEvents = [];
+      console.log(action.payload);
+        for(let i = 0; i < allShowEvents.length; i ++) {
+          if(allShowEvents[i].title.toLowerCase().indexOf(action.payload) > -1) {
+            searchEvents.push(allShowEvents[i]);
+            console.log(allShowEvents[i].title)
+          }
+        }
+
+      return{
+        ...state,
+        showEvents: searchEvents
+      };
     case Types.ADD_EVENT:
       return {
         ...state,
         eventsLoading: true
       };
     case Types.ADD_EVENT_SUCCESS:
+
       NotificationManager.success("Event Added");
       let event = action.payload;
       showEvents.push(event);
+      allShowEvents = showEvents;
 
       return {
         ...state,
@@ -85,6 +105,7 @@ export default (state = INIT_STATE, action) => {
     case Types.DELETE_EVENT_SUCCESS:
       NotificationManager.success("Event has been sucessfully deleted");
       showEvents = showEvents.filter(e => e.id != action.payload);
+      allShowEvents = showEvents;
 
       return {
         ...state,
@@ -116,7 +137,7 @@ export default (state = INIT_STATE, action) => {
           return item;
         }
       });
-
+      allShowEvents = data;
       return {
         ...state,
         eventsLoading: false,

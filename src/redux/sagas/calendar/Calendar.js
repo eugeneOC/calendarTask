@@ -30,6 +30,7 @@ const getAllEventsRequest = async () => {
 const addEventRequest = async newEvent => {
   try {
     const result = await api.post("/events", newEvent);
+    console.log("POST--------", newEvent);
     // const result = newEvent;
     return result.data;
   } catch (err) {
@@ -40,6 +41,7 @@ const deleteEventRequest = async id => {
   try {
     const result = await api.delete(`/events/${id}`);
     // const result = newEvent;
+    // console.log(id);
     return result.data;
   } catch (err) {
     return err;
@@ -47,7 +49,10 @@ const deleteEventRequest = async id => {
 };
 const updateEventRequest = async id => {
   try {
-    const result = await api.patch(`/events/?id=${id.id}`, id);
+    // console.log("Update event is-----------");
+    // console.log(id);
+    const result = await api.patch(`/events/${id.id}`, id);
+    // const result = await api.patch(`/events/?id=${id.id}`, id);
     // const result = newEvent;
     return result.data;
   } catch (err) {
@@ -131,6 +136,7 @@ function* deleteEventFromDB(item) {
 function* updateEventFromDB(item) {
   try {
     const data = yield call(updateEventRequest, item.payload);
+    // console.log("DDDDDDDDDTTTTTTTTTTT",data);
     yield put(Actions.updateEventSuccess(data));
   } catch (err) {
     yield put(Actions.updateEventFailure(err));

@@ -9,6 +9,7 @@ import { Button, Switch, FormControlLabel } from "@material-ui/core";
 
 // Actions
 import { handleRegErrorForm } from "Actions";
+import "../../../assets/styles.css";
 
 class NewEventForm extends Component {
   constructor(props) {
@@ -22,7 +23,10 @@ class NewEventForm extends Component {
         ? new Date(this.props.dayView.end).setHours(13)
         : new Date().setHours(new Date().getHours() + 1),
       title: "",
-      allDay: false
+      allDay: false,
+      location: "",
+      eventableType: "",
+      owner: ""
     };
     this.editField = this.editField.bind(this);
     this.showDesc = this.showDesc.bind(this);
@@ -40,7 +44,7 @@ class NewEventForm extends Component {
     let state = { ...this.state };
     if (state.start == "" || state.end == "") {
       alert("Either you have set the start or end time set wrongly or you have not set a start and end time");
-      // this.props.handleRegErrorForm(
+      // this.props.ha*ndleRegErrorForm(
       //   "Either you have set the start or end time set wrongly or you have not set a start and end time"
       // );
       return false;
@@ -52,6 +56,15 @@ class NewEventForm extends Component {
       // );
       return false;
     }
+
+    if (state.owner == "") {
+      alert("Invalid owner for your event, set a longer owner to define your event");
+      // this.props.handleRegErrorForm(
+      //   "Invalid title for your event, set a longer title to define your event"
+      // );
+      return false;
+    }
+
     if (state.title == "") {
       alert("Invalid title for your event, set a longer title to define your event");
       // this.props.handleRegErrorForm(
@@ -59,28 +72,44 @@ class NewEventForm extends Component {
       // );
       return false;
     }
+
     return true;
   };
 
-  ConfirmEvent = (eventableType, eventableId, formType) => {
+  ConfirmEvent = (eventable_Type, eventableId, formType) => {
+
     if (this.OnBlurValidation()) {
       let data = Object.assign({}, this.state);
-      if (eventableId && eventableType)
-        data = { ...data, eventableId, eventableType };
+      // console.log(data, "--------eventableType");
+      if (eventableId && eventable_Type)
+        data = { ...data, eventableId, eventable_Type };
       this.props.addEvent(data, formType);
     }
   };
 
   render() {
-    const { title, desc, start, end, allDay } = this.state;
-    const { eventableType, eventableId, formType } = this.props;
+    const { title, desc, start, end, allDay, location, eventableType, owner } = this.state;
+    const { eventable_Type, eventableId, formType } = this.props;
     return (
       <form autoComplete="off">
-        <div className="row">
+        <FormInput
+          placeholder="Owner"
+          value={owner}
+          target="owner"
+          handleChange={this.editField}
+          required={!owner}
+        />
+        <FormInput
+          placeholder="Title"
+          value={title}
+          target="title"
+          handleChange={this.editField}
+          required={!title}
+        />
+        <div className="row">        
           <div className="col-6">
             {allDay ? (
               <DatePicker
-                label="Start"
                 value={start}
                 target="start"
                 handleChange={this.editField}
@@ -88,16 +117,16 @@ class NewEventForm extends Component {
               />
             ) : (
               <DateTimePicker
-                label="Start"
                 value={start}
                 target="start"
                 handleChange={this.editField}
                 required={!start}
               />
             )}
+          </div>
+          <div className="col-6">
             {allDay ? (
               <DatePicker
-                label="End"
                 value={end}
                 target="end"
                 handleChange={this.editField}
@@ -105,7 +134,6 @@ class NewEventForm extends Component {
               />
             ) : (
               <DateTimePicker
-                label="End"
                 value={end}
                 target="end"
                 handleChange={this.editField}
@@ -130,26 +158,43 @@ class NewEventForm extends Component {
             className="mb-0 fs-14"
           />
         </div>
+        <div className="row">
+          <div className="col-6">
+            <FormInput
+              placeholder="Location"
+              value={location}
+              target="location"
+              handleChange={this.editField}
+            />            
+          </div>
+          <div className="col-6">
+            <FormInput
+              placeholder="Eventable Type"
+              value={eventableType}
+              target="eventableType"
+              handleChange={this.editField}
+            />
+          </div>
+        </div>
+
         <FormInput
-          label="Title"
-          value={title}
-          target="title"
-          handleChange={this.editField}
-          required={!title}
-        />
-        <FormInput
-          label="Description"
+          placeholder="Description"
           value={desc}
           target="desc"
           handleChange={this.editField}
           multiline
+          rows={3}
         />
+
+        <div className="row">
+
+        </div>
         <div className="d-flex justify-content-end">
           <Button
             variant="contained"
             className="text-white btn-success"
             onClick={() =>
-              this.ConfirmEvent(eventableType, eventableId, formType)
+              this.ConfirmEvent(eventable_Type, eventableId, formType)
             }
           >
             Add

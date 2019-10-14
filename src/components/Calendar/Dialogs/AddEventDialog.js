@@ -6,7 +6,7 @@ import NewEventForm from "Components/Form/Calendar/NewEventForm";
 const AddEventDialog = ({
   handleHide,
   show,
-  eventableType,
+  eventable_Type,
   eventableId,
   addEvent
 }) => {
@@ -18,10 +18,10 @@ const AddEventDialog = ({
       title="New Event Details"
     >
       <NewEventForm
-        eventableType={eventableType}
+        eventable_Type={eventable_Type}
         eventableId={eventableId}
         addEvent={addEvent}
-        formType={eventableType}
+        formType={eventable_Type}
       />
     </DialogRoot>
   );
