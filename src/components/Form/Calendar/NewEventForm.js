@@ -26,7 +26,7 @@ class NewEventForm extends Component {
       allDay: false,
       location: "",
       eventableType: "",
-      owner: ""
+      participants: ""
     };
     this.editField = this.editField.bind(this);
     this.showDesc = this.showDesc.bind(this);
@@ -42,7 +42,9 @@ class NewEventForm extends Component {
 
   OnBlurValidation = () => {
     let state = { ...this.state };
-    if (state.start == "" || state.end == "") {
+    // console.log("new Date(state.start)", new Date(state.start));
+    // console.log("new Date(state.end)", new Date(state.end));
+    if (new Date(state.start) == "" || new Date(state.end) == "") {
       alert("Either you have set the start or end time set wrongly or you have not set a start and end time");
       // this.props.ha*ndleRegErrorForm(
       //   "Either you have set the start or end time set wrongly or you have not set a start and end time"
@@ -57,14 +59,6 @@ class NewEventForm extends Component {
       return false;
     }
 
-    if (state.owner == "") {
-      alert("Invalid owner for your event, set a longer owner to define your event");
-      // this.props.handleRegErrorForm(
-      //   "Invalid title for your event, set a longer title to define your event"
-      // );
-      return false;
-    }
-
     if (state.title == "") {
       alert("Invalid title for your event, set a longer title to define your event");
       // this.props.handleRegErrorForm(
@@ -72,6 +66,29 @@ class NewEventForm extends Component {
       // );
       return false;
     }
+
+    if(state.eventableType == "") {
+      alert("EventableType can't be empty");
+      return false;
+    }
+
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    var emails = state.participants.split("\n");
+    console.log("Email length", emails.length);
+    if(state.participants != "") {
+      for (var i = 0; i < emails.length ; i ++) {
+        if (!filter.test(emails[i])) {
+          alert("Invalid participants email type");
+          return false;
+        }
+      }
+    }
+
+    // console.log(state.participants.split(" "));
+    // if (!filter.test(state.participants)) {
+    //   alert("Invalid participants email type");
+    //   return false;
+    // }
 
     return true;
   };
@@ -88,17 +105,19 @@ class NewEventForm extends Component {
   };
 
   render() {
-    const { title, desc, start, end, allDay, location, eventableType, owner } = this.state;
+    const { title, desc, start, end, allDay, location, eventableType, participants } = this.state;
     const { eventable_Type, eventableId, formType } = this.props;
+    const selectValues = [
+      {"value":"Lead","name":"Lead"},
+      {"value":"Deal","name":"Deal"},
+      {"value":"Account","name":"Account"},
+      {"value":"Invoice","name":"Invoice"},
+      {"value":"Personal","name":"Personal"},
+      {"value":"Team","name":"Team"}
+    ]
     return (
       <form autoComplete="off">
-        <FormInput
-          placeholder="Owner"
-          value={owner}
-          target="owner"
-          handleChange={this.editField}
-          required={!owner}
-        />
+
         <FormInput
           placeholder="Title"
           value={title}
@@ -168,14 +187,26 @@ class NewEventForm extends Component {
             />            
           </div>
           <div className="col-6">
+            
             <FormInput
-              placeholder="Eventable Type"
+              label = "Eventable Type"
               value={eventableType}
               target="eventableType"
               handleChange={this.editField}
+              selectValues = {selectValues}
+              required={!eventableType}
             />
           </div>
         </div>
+
+        <FormInput
+          placeholder="Participants Email"
+          value={participants}
+          target="participants"
+          handleChange={this.editField}
+          multiline
+          rows={3}
+        />
 
         <FormInput
           placeholder="Description"
@@ -186,9 +217,8 @@ class NewEventForm extends Component {
           rows={3}
         />
 
-        <div className="row">
 
-        </div>
+
         <div className="d-flex justify-content-end">
           <Button
             variant="contained"
@@ -214,3 +244,6 @@ export default connect(
   mapStateToProps,
   { handleRegErrorForm }
 )(NewEventForm);
+
+
+

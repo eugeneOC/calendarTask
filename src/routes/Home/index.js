@@ -132,10 +132,10 @@ class Calendar extends Component {
           open={showPop}
           onClose={this.closePopover}
           anchorReference="anchorPosition"
-          anchorPosition={{ top: y, left: x }}
+          anchorPosition={{ top: 0, left: x }}
           anchorOrigin={{
             vertical: "top",
-            horizontal: "left"
+            horizontal: "left",
           }}
           transformOrigin={{
             vertical: "top",
@@ -143,7 +143,7 @@ class Calendar extends Component {
           }}
           elevation={2}
         >
-          <div className="p-20 w-100" style={{ minWidth: 450 }}>
+          <div className="p-20 w-100" style={{ minWidth: 450,maxWidth: 500 }}>
             {this.state.component}
           </div>
         </Popover>

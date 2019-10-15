@@ -7,14 +7,15 @@ import DatePicker from "Components/Form/Components/Pickers/DatePicker";
 import { Button, Switch, FormControlLabel } from "@material-ui/core";
 
 function EditableEventInfo(props) {
+
   const { info, onDelete, editField, toggleEdit, submitEdit } = props;
-  const { id, start, end, title, desc, allDay, location } = info;
+  const { id, start, end, title, desc, allDay, location, participants } = info;
   return (
     <React.Fragment>
       <h3>Edit Event Details</h3>
       <form autoComplete="off">
         <FormInput
-          label="Title"
+          placeholer="Title"
           value={title}
           target="title"
           handleChange={editField}
@@ -24,7 +25,6 @@ function EditableEventInfo(props) {
           <div className="col">
             {allDay ? (
               <DatePicker
-                label="Start"
                 value={start}
                 target="start"
                 handleChange={editField}
@@ -32,7 +32,6 @@ function EditableEventInfo(props) {
               />
             ) : (
               <DateTimePicker
-                label="Start"
                 value={start}
                 target="start"
                 handleChange={editField}
@@ -43,7 +42,6 @@ function EditableEventInfo(props) {
           <div className="col">
             {allDay ? (
               <DatePicker
-                label="End"
                 value={end}
                 target="end"
                 handleChange={editField}
@@ -51,7 +49,6 @@ function EditableEventInfo(props) {
               />
             ) : (
               <DateTimePicker
-                label="End"
                 value={end}
                 target="end"
                 handleChange={editField}
@@ -75,24 +72,29 @@ function EditableEventInfo(props) {
             className="mb-0"
           />
         </div>
-        <div className="row">
-          <div className="col-6">
-            <FormInput
-              label="Location"
-              value={location}
-              target="location"
-              handleChange={editField}
-            />            
-          </div>
-          <div className="col-6">
-            <FormInput
-              label="Description"
-              value={desc}
-              target="desc"
-              handleChange={editField}
-            />
-          </div>
-        </div>
+
+        <FormInput
+          placeholer="Location"
+          value={location}
+          target="location"
+          handleChange={editField}
+        /> 
+
+        <FormInput
+          placeholer="Participants"
+          value={participants}
+          target="participants"
+          handleChange={editField}
+          multiline
+        />
+
+        <FormInput
+          placeholer="Description"
+          value={desc}
+          target="desc"
+          handleChange={editField}
+          multiline
+        />
 
         <div className="row justify-content-between mt-20">
           <div>
