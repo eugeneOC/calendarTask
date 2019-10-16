@@ -80,14 +80,9 @@ const CalendarToolbar = toolbar => {
     toolbar.onViewChange("day");
   };
 
-  const filterChange = (event) => {
-    filterKey = event.target.value;
-    toolbar.getEventsSearch(filterKey, state);
-  }
-
   return (
     <React.Fragment>
-      <div className="toolbar-container mb-10">
+      <div className="toolbar-container mb-10" style={{height : '150px', paddingTop: '50px'}}>
         <div className="row justify-content-between">
           <div className="col-md-4 text-left">
             <div>
@@ -142,100 +137,10 @@ const CalendarToolbar = toolbar => {
             </div>
           </div>
 
-          <div className="col-md-6">
-          <fieldset style={{ marginTop: 20 }}>
-            <legend style={{ fontSize: 20 }}>Eventable Type:</legend>
-              <FormGroup row>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={state.Lead}
-                      onChange={handleChange('Lead')}
-                      value="Lead"
-                    />
-                  }
-                  label="Lead"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={state.Deal}
-                      onChange={handleChange('Deal')}
-                      value="Deal"
-                    />
-                  }
-                  label="Deal"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={state.Account}
-                      onChange={handleChange('Account')}
-                      value="Account"
-                    />
-                  }
-                  label="Account"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={state.Invoice}
-                      onChange={handleChange('Invoice')}
-                      value="Invoice"
-                    />
-                  }
-                  label="Invoice"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={state.Team}
-                      onChange={handleChange('Team')}
-                      value="Team"
-                    />
-                  }
-                  label="Team"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={state.Personal}
-                      onChange={handleChange('Personal')}
-                      value="Personal"
-                    />
-                  }
-                  label="Personal"
-                />
-              </FormGroup>
-            </fieldset>
-          </div>
-
-          <div className="col-md-4">
-            <TextField
-              style={divStyle}
-              id="outlined-name"
-              label="Filter"
-              className="filter"
-              variant="outlined"
-              onChange={filterChange}
-            />
-          </div>
-
-
         </div>
       </div>
     </React.Fragment>
   );
 };
 
-const mapStateToProps = ({ calendarState }) => {
-  const { showEvents } = calendarState;
-  return { showEvents };
-};
-
-export default connect(
-  mapStateToProps,
-  {
-    getEventsSearch
-  }
-)(CalendarToolbar);
+export default connect(null)(CalendarToolbar);

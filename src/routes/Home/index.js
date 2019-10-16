@@ -11,6 +11,7 @@ import moment from "moment";
 // Calendar Components
 import CustomToolbar from "Components/Calendar/CustomToolbar";
 import CustomEvent from "Components/Calendar/CustomEvent";
+import Filterbar from "Components/Calendar/Filterbar";
 
 // Event Info
 import EventInfo from "Components/Calendar/EventInfo";
@@ -95,12 +96,13 @@ class Calendar extends Component {
     const { showPop, x, y } = this.state;
     return (
       <React.Fragment>
-        <div className="calendar-wrapper">
-          <Helmet>
-            <title>Everyday | Calendar</title>
-            <meta name="description" content="Everyday Calendar" />
-          </Helmet>
+      <div style={{display: "flex"}}>
+        <div className="col-md-2">
+          <Filterbar />
+        </div>
 
+        <div className="calendar-wrapper col-md-10">
+          
           <div className="row">
             <div
               className="col-md-12"
@@ -147,6 +149,7 @@ class Calendar extends Component {
             {this.state.component}
           </div>
         </Popover>
+       </div>
       </React.Fragment>
     );
   }
