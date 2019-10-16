@@ -26,6 +26,7 @@ const CalendarToolbar = toolbar => {
     // backgroundImage: 'url(' + imgUrl + ')',
   };
 
+  var filterKey = "";
 
   const [state, setState] = React.useState({
     Lead: true,
@@ -35,15 +36,28 @@ const CalendarToolbar = toolbar => {
     Personal: true,
     Team: true,
   });
+  // this.state = React.useState ({
+  //       Lead: true,
+  //   Deal: true,
+  //   Account: true,
+  //   Invoice: true,
+  //   Personal: true,
+  //   Team: true,
+  // });
 
   const handleChange = name => event => {
-    
+    // console.log(name);
+    state[name] = event.target.checked;
     setState({ ...state, [name]: event.target.checked });
-    console.log(state);
+    checkBoxChanged(state);
+    // console.log(state);
   };
 
   var today = new Date();
-
+  const checkBoxChanged = (data) => {
+    // console.log(data);
+    toolbar.getEventsSearch(filterKey, state);
+  }
   const goToToday = () => {
     toolbar.onNavigate("TODAY");
   };
@@ -67,7 +81,7 @@ const CalendarToolbar = toolbar => {
   };
 
   const filterChange = (event) => {
-    var filterKey = event.target.value;
+    filterKey = event.target.value;
     toolbar.getEventsSearch(filterKey, state);
   }
 
