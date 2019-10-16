@@ -11,11 +11,35 @@ import { NavigateBefore, NavigateNext } from "@material-ui/icons";
 import { getEventsSearch } from "Actions";
 import PropTypes from 'prop-types';
 
+import { withStyles } from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+
 const CalendarToolbar = toolbar => {
   const divStyle = {
     marginTop: '25px',
     // color: 'blue',
     // backgroundImage: 'url(' + imgUrl + ')',
+  };
+
+
+  const [state, setState] = React.useState({
+    Lead: true,
+    Deal: true,
+    Account: true,
+    Invoice: true,
+    Personal: true,
+    Team: true,
+  });
+
+  const handleChange = name => event => {
+    
+    setState({ ...state, [name]: event.target.checked });
+    console.log(state);
   };
 
   var today = new Date();
@@ -44,7 +68,7 @@ const CalendarToolbar = toolbar => {
 
   const filterChange = (event) => {
     var filterKey = event.target.value;
-    toolbar.getEventsSearch(filterKey);
+    toolbar.getEventsSearch(filterKey, state);
   }
 
   return (
@@ -104,7 +128,73 @@ const CalendarToolbar = toolbar => {
             </div>
           </div>
 
-          {<div className="col-md-4"></div>}
+          <div className="col-md-6">
+          <fieldset style={{ marginTop: 20 }}>
+            <legend style={{ fontSize: 20 }}>Eventable Type:</legend>
+              <FormGroup row>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={state.Lead}
+                      onChange={handleChange('Lead')}
+                      value="Lead"
+                    />
+                  }
+                  label="Lead"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={state.Deal}
+                      onChange={handleChange('Deal')}
+                      value="Deal"
+                    />
+                  }
+                  label="Deal"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={state.Account}
+                      onChange={handleChange('Account')}
+                      value="Account"
+                    />
+                  }
+                  label="Account"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={state.Invoice}
+                      onChange={handleChange('Invoice')}
+                      value="Invoice"
+                    />
+                  }
+                  label="Invoice"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={state.Team}
+                      onChange={handleChange('Team')}
+                      value="Team"
+                    />
+                  }
+                  label="Team"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={state.Personal}
+                      onChange={handleChange('Personal')}
+                      value="Personal"
+                    />
+                  }
+                  label="Personal"
+                />
+              </FormGroup>
+            </fieldset>
+          </div>
 
           <div className="col-md-4">
             <TextField

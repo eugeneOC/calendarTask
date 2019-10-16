@@ -216,9 +216,7 @@ class NewEventForm extends Component {
           multiline
           rows={3}
         />
-
-
-
+        
         <div className="d-flex justify-content-end">
           <Button
             variant="contained"

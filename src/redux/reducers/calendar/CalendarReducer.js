@@ -56,11 +56,12 @@ export default (state = INIT_STATE, action) => {
      */
     case Types.GET_EVENT_SEARCH:
       let searchEvents = [];
-      console.log(action.payload);
+      console.log(action.payload.filter);
         for(let i = 0; i < allShowEvents.length; i ++) {
-          if(allShowEvents[i].title.toLowerCase().indexOf(action.payload) > -1) {
+          if(allShowEvents[i].title.toLowerCase().indexOf(action.payload.filter) > -1) {
+            // if(allShowEvents[i].eventableType )
             searchEvents.push(allShowEvents[i]);
-            console.log(allShowEvents[i].title)
+            // console.log(allShowEvents[i].title)
           }
         }
 

@@ -15,7 +15,7 @@ function EditableEventInfo(props) {
       <h3>Edit Event Details</h3>
       <form autoComplete="off">
         <FormInput
-          placeholer="Title"
+          label="Title"
           value={title}
           target="title"
           handleChange={editField}
@@ -25,6 +25,7 @@ function EditableEventInfo(props) {
           <div className="col">
             {allDay ? (
               <DatePicker
+                label="Start"
                 value={start}
                 target="start"
                 handleChange={editField}
@@ -32,6 +33,7 @@ function EditableEventInfo(props) {
               />
             ) : (
               <DateTimePicker
+                label="Start"
                 value={start}
                 target="start"
                 handleChange={editField}
@@ -42,6 +44,7 @@ function EditableEventInfo(props) {
           <div className="col">
             {allDay ? (
               <DatePicker
+                label="End"
                 value={end}
                 target="end"
                 handleChange={editField}
@@ -49,6 +52,7 @@ function EditableEventInfo(props) {
               />
             ) : (
               <DateTimePicker
+                label="End"
                 value={end}
                 target="end"
                 handleChange={editField}
@@ -74,14 +78,14 @@ function EditableEventInfo(props) {
         </div>
 
         <FormInput
-          placeholer="Location"
+          label="Location"
           value={location}
           target="location"
           handleChange={editField}
         /> 
 
         <FormInput
-          placeholer="Participants"
+          label="Participants"
           value={participants}
           target="participants"
           handleChange={editField}
@@ -89,7 +93,7 @@ function EditableEventInfo(props) {
         />
 
         <FormInput
-          placeholer="Description"
+          label="Description"
           value={desc}
           target="desc"
           handleChange={editField}

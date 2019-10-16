@@ -16,9 +16,13 @@ export const getAllEvents = (filter, start, end, id) => ({
   }
 });
 
-export const getEventsSearch = filter => ({
+export const getEventsSearch = (filter, state) => ({
   type: types.GET_EVENT_SEARCH,
-  payload: filter
+  payload: 
+  {
+    filter,
+    state
+  }
 });
 
 export const getAllEventsSuccess = (events, myEvents) => ({
