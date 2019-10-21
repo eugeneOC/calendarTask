@@ -9,7 +9,14 @@ import { Button, Switch, FormControlLabel } from "@material-ui/core";
 function EditableEventInfo(props) {
 
   const { info, onDelete, editField, toggleEdit, submitEdit } = props;
-  const { id, start, end, title, desc, allDay, location, participants } = info;
+  const { id, start, end, title, desc, allDay, location, participants, recurrence } = info;
+  const selectValues1 = [
+    {"value":"No repeat", "name":"No repeat"},
+    {"value":"Daily", "name":"Daily"},
+    {"value":"Weekly", "name":"Weekly"},
+    {"value":"Monthly", "name":"Monthly"},
+    {"value":"Yearly", "name":"Yearly"}
+  ]
   return (
     <React.Fragment>
       <h3>Edit Event Details</h3>
@@ -61,20 +68,31 @@ function EditableEventInfo(props) {
             )}
           </div>
         </div>
-        <div className="text-right text-muted">
-          <FormControlLabel
-            control={
-              <Switch
-                checked={allDay}
-                onChange={() => editField("allDay", !allDay)}
-                value="allDay"
-                disableRipple
-              />
-            }
-            label="All day event"
-            labelPlacement="start"
-            className="mb-0"
-          />
+        <div className="row">
+          <div className="col-6">
+            <FormInput
+              label = "Recurrence"
+              value={recurrence}
+              target="recurrence"
+              handleChange={editField}
+              selectValues = {selectValues1}
+            />
+          </div>
+          <div className="col-6">        
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={allDay}
+                  onChange={() => editField("allDay", !allDay)}
+                  value="allDay"
+                  disableRipple
+                />
+              }
+              label="All day event"
+              labelPlacement="start"
+              className="mb-0"
+            />
+          </div>
         </div>
 
         <FormInput

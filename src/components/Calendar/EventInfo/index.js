@@ -35,6 +35,7 @@ class EventInfoDialog extends Component {
     this.setState({ edit: false });
 
     let state = { ...this.state.info };
+    // console.log(state);
     this.props.updateEvent(state);
   };
 

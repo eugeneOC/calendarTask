@@ -7,6 +7,12 @@ import api from "Api";
 //=========================
 // REQUESTS
 //=========================
+// function uuidv4() {
+//     return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+//         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+//     )
+// }
+
 const getAllEventsRequestWithFilter = async (start, end, id) => {
   try {
     const result = await api.get(
@@ -29,9 +35,78 @@ const getAllEventsRequest = async () => {
 };
 const addEventRequest = async newEvent => {
   try {
+    // var uuid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+    // switch (newEvent["recurrence"]) {
+    //   case "No Repeat":
+    //     const result = await api.post("/events", newEvent);
+    //     break;
+
+    //   case "Daily":
+    //     newEvent["recurrence_id"] = uuid;
+    //     for (var i = 0;i < 3; i++) {
+    //       newEvent["start"] += 86400000;
+    //       newEvent["end"] += 86400000;
+    //       const result = await api.post("/events", newEvent);
+    //     }
+    //     break;
+
+    //   case "Weekly":
+    //     newEvent["recurrence_id"] = uuid;
+
+    //     for (var i = 0;i < 3; i++) {
+    //       newEvent["start"] += 604800000;
+    //       newEvent["end"] += 604800000;
+    //       const result = await api.post("/events", newEvent);
+    //     }
+    //     break;
+
+    //   case "Monthly":
+    //     newEvent["recurrence_id"] = uuid;
+
+    //     for (var i = 0;i < 3; i++) {
+    //       newEvent["start"] += 2678400000;
+    //       newEvent["end"] += 2678400000;
+    //       const result = await api.post("/events", newEvent);
+    //     }
+    //     break;
+
+    //   case "Yearly":
+    //     newEvent["recurrence_id"] = uuid;
+
+    //     for (var i = 0;i < 3; i++) {
+    //       newEvent["start"] += 31536000000;
+    //       newEvent["end"] += 31536000000;
+    //       const result = await api.post("/events", newEvent);
+    //     }
+    //     break;
+        
+    //   default:
+    //     // code...
+    //     break;
+    // }
+
+    // if(newEvent["recurrence"] == "No Repeat") {
+    //   const result = await api.post("/events", newEvent);
+    // }
+
+    // else {
+    //   switch (variable) {
+    //     case "value":
+    //       // code...
+    //       break;
+        
+    //     default:
+    //       // code...
+    //       break;
+    //   }
+    //   var uuid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+    //   newEvent["recurrence_id"] = uuid;
+    //   // console.log("POST--------", newEvent["start"]+86400000);
+    //   console.log("POST--------", newEvent["start"]+604800000);
+    //   // 2678400000
+    //   // 31536000000
+    // }
     const result = await api.post("/events", newEvent);
-    console.log("POST--------", newEvent);
-    // const result = newEvent;
     return result.data;
   } catch (err) {
     return err;

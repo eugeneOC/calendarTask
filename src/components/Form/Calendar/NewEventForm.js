@@ -26,6 +26,7 @@ class NewEventForm extends Component {
       allDay: false,
       location: "",
       eventableType: "",
+      recurrence: "",
       participants: ""
     };
     this.editField = this.editField.bind(this);
@@ -72,6 +73,11 @@ class NewEventForm extends Component {
       return false;
     }
 
+    if(state.recurrence == "") {
+      alert("EventableType can't be empty");
+      return false;
+    }
+
     var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     var emails = state.participants.split("\n");
     console.log("Email length", emails.length);
@@ -105,7 +111,7 @@ class NewEventForm extends Component {
   };
 
   render() {
-    const { title, desc, start, end, allDay, location, eventableType, participants } = this.state;
+    const { title, desc, start, end, allDay, location, eventableType, participants, recurrence } = this.state;
     const { eventable_Type, eventableId, formType } = this.props;
     const selectValues = [
       {"value":"Lead","name":"Lead"},
@@ -115,8 +121,16 @@ class NewEventForm extends Component {
       {"value":"Personal","name":"Personal"},
       {"value":"Team","name":"Team"}
     ]
+
+    const selectValues1 = [
+      {"value":"No repeat", "name":"No repeat"},
+      {"value":"Daily", "name":"Daily"},
+      {"value":"Weekly", "name":"Weekly"},
+      {"value":"Monthly", "name":"Monthly"},
+      {"value":"Yearly", "name":"Yearly"}
+    ]
     return (
-      <form autoComplete="off">
+      <form autoComplete="off" >
 
         <FormInput
           placeholder="Title"
@@ -161,21 +175,34 @@ class NewEventForm extends Component {
             )}
           </div>
         </div>
-        <div className="text-left text-muted">
-          <FormControlLabel
-            control={
-              <Switch
-                checked={allDay}
-                onChange={() => this.editField("allDay", !allDay)}
-                value="allDay"
-                className="ml-10"
-                disableRipple
-              />
-            }
-            label="All day event"
-            labelPlacement="start"
-            className="mb-0 fs-14"
-          />
+        <div className="row">
+          <div className="col-6">
+            <FormInput
+              label = "Recurrence"
+              value={recurrence}
+              target="recurrence"
+              handleChange={this.editField}
+              selectValues = {selectValues1}
+              required={!recurrence}
+            />
+          </div>
+
+          <div className="col-6">
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={allDay}
+                  onChange={() => this.editField("allDay", !allDay)}
+                  value="allDay"
+                  className="ml-10"
+                  disableRipple
+                />
+              }
+              label="All day event"
+              labelPlacement="start"
+              className="mb-0 fs-14"
+            />
+          </div>
         </div>
         <div className="row">
           <div className="col-6">
