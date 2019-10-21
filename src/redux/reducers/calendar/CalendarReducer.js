@@ -208,8 +208,8 @@ export default (state = INIT_STATE, action) => {
           temp = recurrence(temp, showEvents[yearly[i]]);
           var start1 = new Date(start_date);
           var end1 = new Date(end_date);
-          start1.setYear(start1.getYear() + j);
-          end1.setYear(end1.getYear() + j);
+          start1.setFullYear(start1.getFullYear() + j);
+          end1.setFullYear(end1.getFullYear() + j);
           // console.log(start1);
           temp["start"] = start1;
           temp["end"] = end1;
@@ -327,8 +327,8 @@ export default (state = INIT_STATE, action) => {
             temp = recurrence(temp, event);
             var start1 = new Date(start_date);
             var end1 = new Date(end_date);
-            start1.setYear(start1.getYear() + j);
-            end1.setYear(end1.getYear() + j);
+            start1.setFullYear(start1.getFullYear() + j);
+            end1.setFullYear(end1.getFullYear() + j);
             // console.log(start1);
             temp["start"] = start1;
             temp["end"] = end1;
@@ -480,9 +480,8 @@ export default (state = INIT_STATE, action) => {
                 
                 var start1 = new Date(start_date);
                 var end1 = new Date(end_date);
-                start1.setYear(start1.getYear() + j);
-                end1.setYear(end1.getYear() + j);
-                // console.log(start1);
+                start1.setFullYear(start1.getFullYear() + j);
+                end1.setFullYear(end1.getFullYear() + j);
                 temp["start"] = start1;
                 temp["end"] = end1;
                 showEvents[i+j] = temp;
