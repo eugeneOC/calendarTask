@@ -11,6 +11,7 @@ import moment from "moment";
 import MomentUtils from "@date-io/moment";
 // css
 import "./lib/reactifyCss";
+import "./assets/styles.css";
 
 // app component
 import App from "./container/App";
@@ -18,6 +19,7 @@ import App from "./container/App";
 import { store } from "./redux/store";
 
 const MainApp = () => (
+	// <div></div>
   <Provider store={store}>
     <MuiPickersUtilsProvider utils={MomentUtils} moment={moment}>
       <Router>

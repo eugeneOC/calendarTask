@@ -15,6 +15,16 @@ export const getAllEvents = (filter, start, end, id) => ({
     id
   }
 });
+
+export const getEventsSearch = (filter, state) => ({
+  type: types.GET_EVENT_SEARCH,
+  payload: 
+  {
+    filter,
+    state
+  }
+});
+
 export const getAllEventsSuccess = (events, myEvents) => ({
   type: types.GET_ALL_EVENTS_SUCCESS,
   payload: { events, myEvents }
@@ -87,3 +97,6 @@ export const getEventFailure = err => ({
   type: types.GET_EVENT_FAILURE,
   payload: err
 });
+
+
+// export const filterChange

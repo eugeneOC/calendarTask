@@ -2,6 +2,7 @@
  * Calendar Action Types
  */
 export const GET_ALL_EVENTS = "GET_ALL_EVENTS";
+export const GET_EVENT_SEARCH = "GET_EVENT_SEARCH";
 export const GET_ALL_EVENTS_SUCCESS = "GET_ALL_EVENTS_SUCCESS";
 export const GET_ALL_EVENTS_FAILURE = "GET_ALL_EVENTS_FAILURE";
 

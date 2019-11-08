@@ -9,6 +9,7 @@ import { Button, Switch, FormControlLabel } from "@material-ui/core";
 
 // Actions
 import { handleRegErrorForm } from "Actions";
+import "../../../assets/styles.css";
 
 class NewEventForm extends Component {
   constructor(props) {
@@ -22,7 +23,11 @@ class NewEventForm extends Component {
         ? new Date(this.props.dayView.end).setHours(13)
         : new Date().setHours(new Date().getHours() + 1),
       title: "",
-      allDay: false
+      allDay: false,
+      location: "",
+      eventableType: "",
+      recurrence: "",
+      participants: ""
     };
     this.editField = this.editField.bind(this);
     this.showDesc = this.showDesc.bind(this);
@@ -37,47 +42,107 @@ class NewEventForm extends Component {
   }
 
   OnBlurValidation = () => {
-    let state = { ...this.state.event };
-    if (state.start == "" || state.end == "") {
-      this.props.handleRegErrorForm(
-        "Either you have set the start or end time set wrongly or you have not set a start and end time"
-      );
+    let state = { ...this.state };
+    // console.log("new Date(state.start)", new Date(state.start));
+    // console.log("new Date(state.end)", new Date(state.end));
+    if (new Date(state.start) == "" || new Date(state.end) == "") {
+      alert("Either you have set the start or end time set wrongly or you have not set a start and end time");
+      // this.props.ha*ndleRegErrorForm(
+      //   "Either you have set the start or end time set wrongly or you have not set a start and end time"
+      // );
       return false;
     }
     if (new Date(state.start) > new Date(state.end)) {
-      this.props.handleRegErrorForm(
-        "Your start date and time is later than your end date and time, please adjust the correct date and time"
-      );
+      alert("Your start date and time is later than your end date and time, please adjust the correct date and time");
+      // this.props.handleRegErrorForm(
+      //   "Your start date and time is later than your end date and time, please adjust the correct date and time"
+      // );
       return false;
     }
+
     if (state.title == "") {
-      this.props.handleRegErrorForm(
-        "Invalid title for your event, set a longer title to define your event"
-      );
+      alert("Invalid title for your event, set a longer title to define your event");
+      // this.props.handleRegErrorForm(
+      //   "Invalid title for your event, set a longer title to define your event"
+      // );
       return false;
     }
+
+    if(state.eventableType == "") {
+      alert("EventableType can't be empty");
+      return false;
+    }
+
+    if(state.recurrence == "") {
+      alert("EventableType can't be empty");
+      return false;
+    }
+
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    var emails = state.participants.split("\n");
+    console.log("Email length", emails.length);
+    if(state.participants != "") {
+      for (var i = 0; i < emails.length ; i ++) {
+        if (!filter.test(emails[i])) {
+          alert("Invalid participants email type");
+          return false;
+        }
+      }
+    }
+
+    // console.log(state.participants.split(" "));
+    // if (!filter.test(state.participants)) {
+    //   alert("Invalid participants email type");
+    //   return false;
+    // }
+
     return true;
   };
 
-  ConfirmEvent = (eventableType, eventableId, formType) => {
+  ConfirmEvent = (eventable_Type, eventableId, formType) => {
+
     if (this.OnBlurValidation()) {
       let data = Object.assign({}, this.state);
-      if (eventableId && eventableType)
-        data = { ...data, eventableId, eventableType };
+      // console.log(data, "--------eventableType");
+      if (eventableId && eventable_Type)
+        data = { ...data, eventableId, eventable_Type };
       this.props.addEvent(data, formType);
     }
   };
 
   render() {
-    const { title, desc, start, end, allDay } = this.state;
-    const { eventableType, eventableId, formType } = this.props;
+    const { title, desc, start, end, allDay, location, eventableType, participants, recurrence } = this.state;
+    const { eventable_Type, eventableId, formType } = this.props;
+    const selectValues = [
+      {"value":"Lead","name":"Lead"},
+      {"value":"Deal","name":"Deal"},
+      {"value":"Account","name":"Account"},
+      {"value":"Invoice","name":"Invoice"},
+      {"value":"Personal","name":"Personal"},
+      {"value":"Team","name":"Team"}
+    ]
+
+    const selectValues1 = [
+      {"value":"No repeat", "name":"No repeat"},
+      {"value":"Daily", "name":"Daily"},
+      {"value":"Weekly", "name":"Weekly"},
+      {"value":"Monthly", "name":"Monthly"},
+      {"value":"Yearly", "name":"Yearly"}
+    ]
     return (
-      <form autoComplete="off">
-        <div className="row">
+      <form autoComplete="off" >
+
+        <FormInput
+          placeholder="Title"
+          value={title}
+          target="title"
+          handleChange={this.editField}
+          required={!title}
+        />
+        <div className="row">        
           <div className="col-6">
             {allDay ? (
               <DatePicker
-                label="Start"
                 value={start}
                 target="start"
                 handleChange={this.editField}
@@ -85,16 +150,16 @@ class NewEventForm extends Component {
               />
             ) : (
               <DateTimePicker
-                label="Start"
                 value={start}
                 target="start"
                 handleChange={this.editField}
                 required={!start}
               />
             )}
+          </div>
+          <div className="col-6">
             {allDay ? (
               <DatePicker
-                label="End"
                 value={end}
                 target="end"
                 handleChange={this.editField}
@@ -102,7 +167,6 @@ class NewEventForm extends Component {
               />
             ) : (
               <DateTimePicker
-                label="End"
                 value={end}
                 target="end"
                 handleChange={this.editField}
@@ -111,42 +175,81 @@ class NewEventForm extends Component {
             )}
           </div>
         </div>
-        <div className="text-left text-muted">
-          <FormControlLabel
-            control={
-              <Switch
-                checked={allDay}
-                onChange={() => this.editField("allDay", !allDay)}
-                value="allDay"
-                className="ml-10"
-                disableRipple
-              />
-            }
-            label="All day event"
-            labelPlacement="start"
-            className="mb-0 fs-14"
-          />
+        <div className="row">
+          <div className="col-6">
+            <FormInput
+              label = "Recurrence"
+              value={recurrence}
+              target="recurrence"
+              handleChange={this.editField}
+              selectValues = {selectValues1}
+              required={!recurrence}
+            />
+          </div>
+
+          <div className="col-6">
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={allDay}
+                  onChange={() => this.editField("allDay", !allDay)}
+                  value="allDay"
+                  className="ml-10"
+                  disableRipple
+                />
+              }
+              label="All day event"
+              labelPlacement="start"
+              className="mb-0 fs-14"
+            />
+          </div>
         </div>
+        <div className="row">
+          <div className="col-6">
+            <FormInput
+              placeholder="Location"
+              value={location}
+              target="location"
+              handleChange={this.editField}
+            />            
+          </div>
+          <div className="col-6">
+            
+            <FormInput
+              label = "Eventable Type"
+              value={eventableType}
+              target="eventableType"
+              handleChange={this.editField}
+              selectValues = {selectValues}
+              required={!eventableType}
+            />
+          </div>
+        </div>
+
         <FormInput
-          label="Title"
-          value={title}
-          target="title"
+          placeholder="Participants Email"
+          value={participants}
+          target="participants"
           handleChange={this.editField}
-          required={!title}
+          multiline
+          rows={3}
         />
+
         <FormInput
-          label="Description"
+          placeholder="Description"
           value={desc}
           target="desc"
           handleChange={this.editField}
           multiline
+          rows={3}
         />
+        
         <div className="d-flex justify-content-end">
           <Button
             variant="contained"
             className="text-white btn-success"
             onClick={() =>
-              this.ConfirmEvent(eventableType, eventableId, formType)
+              this.ConfirmEvent(eventable_Type, eventableId, formType)
             }
           >
             Add
@@ -166,3 +269,6 @@ export default connect(
   mapStateToProps,
   { handleRegErrorForm }
 )(NewEventForm);
+
+
+

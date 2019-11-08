@@ -5,11 +5,13 @@ import { connect } from "react-redux";
 import { show } from "redux-modal";
 
 import BigCalendar from "react-big-calendar";
+import Views from "react-big-calendar";
 import moment from "moment";
 
 // Calendar Components
 import CustomToolbar from "Components/Calendar/CustomToolbar";
 import CustomEvent from "Components/Calendar/CustomEvent";
+import Filterbar from "Components/Calendar/Filterbar";
 
 // Event Info
 import EventInfo from "Components/Calendar/EventInfo";
@@ -18,15 +20,20 @@ import EventInfo from "Components/Calendar/EventInfo";
 import NewEventForm from "Components/Form/Calendar/NewEventForm";
 
 import { getAllEvents, addEvent } from "Actions";
+// import { filterChange } from "Com"
 import Popover from "@material-ui/core/Popover";
 
+import "../../assets/styles.css";
+
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
+
+let allViews = Object.keys(Views).map(k => Views[k]) 
 
 class Calendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      calendarView: "month",
+      calendarView: "week",
       showPop: false,
       component: null,
       x: 0,
@@ -37,10 +44,15 @@ class Calendar extends Component {
     this.onMouseDownCapture = this.onMouseDownCapture.bind(this);
     this.newEvent = this.newEvent.bind(this);
     this.closePopover = this.closePopover.bind(this);
+    this.filterChange = this.filterChange.bind(this);
   }
 
   componentDidMount() {
     this.props.getAllEvents();
+  }
+
+  filterChange(event) {
+    // this.props
   }
 
   // create new event
@@ -84,12 +96,13 @@ class Calendar extends Component {
     const { showPop, x, y } = this.state;
     return (
       <React.Fragment>
-        <div className="calendar-wrapper">
-          <Helmet>
-            <title>Everyday | Calendar</title>
-            <meta name="description" content="Everyday Calendar" />
-          </Helmet>
+      <div style={{display: "flex"}}>
+        <div className="col-md-2">
+          <Filterbar />
+        </div>
 
+        <div className="calendar-wrapper col-md-10">
+          
           <div className="row">
             <div
               className="col-md-12"
@@ -100,7 +113,7 @@ class Calendar extends Component {
                 style={{ position: "relative" }}
                 selectable
                 events={showEvents}
-                views={["month"]}
+                views={["month", "week", "day"]}
                 onSelectEvent={slotSelected =>
                   this.renderEventPopover(slotSelected)
                 }
@@ -121,10 +134,10 @@ class Calendar extends Component {
           open={showPop}
           onClose={this.closePopover}
           anchorReference="anchorPosition"
-          anchorPosition={{ top: y, left: x }}
+          anchorPosition={{ top: 0, left: x }}
           anchorOrigin={{
             vertical: "top",
-            horizontal: "left"
+            horizontal: "left",
           }}
           transformOrigin={{
             vertical: "top",
@@ -132,10 +145,11 @@ class Calendar extends Component {
           }}
           elevation={2}
         >
-          <div className="p-20 w-100" style={{ minWidth: 450 }}>
+          <div className="p-20 w-100" style={{ minWidth: 450,maxWidth: 500 }}>
             {this.state.component}
           </div>
         </Popover>
+       </div>
       </React.Fragment>
     );
   }

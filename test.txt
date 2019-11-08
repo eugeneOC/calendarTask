@@ -1,0 +1,42 @@
+BASE_URL: https://staging-api.everydaycrm.sg/api
+Create: /events (POST)
+Get all: /events (GET)
+View one: /events/:id (GET)
+update one: /events/:id (PATCH)
+delete: /events/:id (DELETE)
+
+Btw if you need an access token use this: DE17DMHS2xbJBhAECNk7lJ6hGIN7Jpc1xqHRYfNgvCedp86SExdH08CZ17JqPmBB
+
+IbgBKPgF2O71DadjoTAz1RETSIOVMJwalu0gBYFIRMVSnankKm1ZU6M63JFjQRr8
+
+
+1st Milestone:
+- Day, week, month view
+- Search bar for filter events by title
+- CRUD functions for calendar events
+- Create/Edit form for events shows:
+- start datetime/end datetime
+- Owner (not editable)
+- Related to (not editable)
+- Location of event
+- Participants (a text field allowing email input)
+- Description
+2nd milestone:
+- Checkbox filter to filter events by category
+- Recurring events (daily, weekly, monthly yearly)
+
+
+
+{
+    "title": "Meeting 2",
+    "start": "2019-10-11T04:00:00.000Z",
+    "end": "2019-10-11T05:00:00.000Z",
+    "desc": "test test",
+    "allDay": false,
+    "isRecurring": false,
+    "location": "Singapore",
+    "eventableType": "Lead",
+    "eventableId":
+    "participants": [{"email": "test@test.com, "rsvp": "unconfirmed"}, {"email":"abc.123.com", "rsvp": "confirmed"}],
+
+  }
