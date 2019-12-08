@@ -3,6 +3,7 @@
  */
 import { NotificationManager } from "react-notifications";
 import * as Types from "Types/calendar/CalendarTypes";
+import {SET_PARTICIPANTS} from "Types/calendar/CalendarTypes";
 
 const INIT_STATE = {
   eventAdd: {},
@@ -16,7 +17,8 @@ const INIT_STATE = {
   myEvents: [],
   allEvents: [],
   showEvents: [],
-  eventsLoading: false
+  eventsLoading: false,
+  participants:[]
 };
 
 let allShowEvents = [];
@@ -487,7 +489,7 @@ export default (state = INIT_STATE, action) => {
                 showEvents[i+j] = temp;
               }
               break;
-            
+
             default:
               // code...
               break;
@@ -511,7 +513,11 @@ export default (state = INIT_STATE, action) => {
         eventsLoading: false,
         isAddEvent: false
       };
-
+    case SET_PARTICIPANTS:
+      return {
+        ...state,participants:action.payload
+      }
+      break;
     default:
       return { ...state };
   }

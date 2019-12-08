@@ -10,6 +10,7 @@ import { Button, Switch, FormControlLabel } from "@material-ui/core";
 // Actions
 import { handleRegErrorForm } from "Actions";
 import "../../../assets/styles.css";
+import EmailForm from "Components/Form/Components/EmailForm";
 
 class NewEventForm extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class NewEventForm extends Component {
       location: "",
       eventableType: "",
       recurrence: "",
-      participants: ""
+      participants: [],
     };
     this.editField = this.editField.bind(this);
     this.showDesc = this.showDesc.bind(this);
@@ -79,7 +80,7 @@ class NewEventForm extends Component {
     }
 
     var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    var emails = state.participants.split("\n");
+    var emails = state.participants;
     console.log("Email length", emails.length);
     if(state.participants != "") {
       for (var i = 0; i < emails.length ; i ++) {
@@ -100,7 +101,6 @@ class NewEventForm extends Component {
   };
 
   ConfirmEvent = (eventable_Type, eventableId, formType) => {
-
     if (this.OnBlurValidation()) {
       let data = Object.assign({}, this.state);
       // console.log(data, "--------eventableType");
@@ -111,7 +111,7 @@ class NewEventForm extends Component {
   };
 
   render() {
-    const { title, desc, start, end, allDay, location, eventableType, participants, recurrence } = this.state;
+     const { title, desc, start, end, allDay, location, eventableType, participants, recurrence } = this.state;
     const { eventable_Type, eventableId, formType } = this.props;
     const selectValues = [
       {"value":"Lead","name":"Lead"},
@@ -226,13 +226,11 @@ class NewEventForm extends Component {
           </div>
         </div>
 
-        <FormInput
-          placeholder="Participants Email"
+        <EmailForm
+          placeholder = "Email address"
           value={participants}
           target="participants"
           handleChange={this.editField}
-          multiline
-          rows={3}
         />
 
         <FormInput
@@ -261,8 +259,8 @@ class NewEventForm extends Component {
 }
 
 const mapStateToProps = ({ calendarState }) => {
-  const { eventAdd } = calendarState;
-  return { eventAdd };
+  const { eventAdd,participants} = calendarState;
+  return { eventAdd,participants };
 };
 
 export default connect(

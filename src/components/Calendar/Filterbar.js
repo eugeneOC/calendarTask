@@ -1,7 +1,6 @@
-
 import React from "react";
 import { connect } from "react-redux";
-
+import { gapi } from 'gapi-script';
 import { convertMonth, convertDay } from "Helpers/helpers";
 
 import { Button, TextField } from "@material-ui/core";
@@ -21,6 +20,7 @@ import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import Image from '../../assets/image/img.png';
 
 const CalendarToolbar = toolbar => {
+
   const divStyle = {
     marginTop: '25px',
     // color: 'blue',
@@ -36,9 +36,16 @@ const CalendarToolbar = toolbar => {
     Invoice: true,
     Personal: true,
     Team: true,
+    events: [],
+    calApiLoaded: false,
+    clientId: '770641658638-06ct3fshtasqo1ecupq2999vn7taeflm.apps.googleusercontent.com',
+    eventColors: {},
+    calColors: {},
+    calIds: {},
+    firstDay: new Date(),
+    lastDay: new Date(),
+    cals: [],
   });
-
-
   const handleChange = name => event => {
     // console.log(name);
     state[name] = event.target.checked;
@@ -57,6 +64,29 @@ const CalendarToolbar = toolbar => {
   const filterChange = (event) => {
     filterKey = event.target.value;
     toolbar.getEventsSearch(filterKey, state);
+  }
+
+  const getEvents = function () {
+    let that = this;
+    function start() {
+      gapi.client.init({
+        'apiKey': "AIzaSyBWSd5GCPNo7AjigCfsegTjWryTRMtLvBA"
+      }).then(function() {
+        return gapi.client.request({
+          'path': `https://www.googleapis.com/calendar/v3/calendars/newfurry1996@gmail.com/events`,
+        })
+      }).then( (response) => {
+        let events = response.result.items;
+         setState({
+          ...state,
+           events
+        });
+        console.log(state.events);
+      }, function(reason) {
+        console.log(reason);
+      });
+    }
+    gapi.load('client', start);
   }
 
   return (
@@ -137,9 +167,15 @@ const CalendarToolbar = toolbar => {
           />
         </FormGroup>
       </fieldset>
+
+     <Button variant="outlined" onClick={getEvents}>
+       Google-Calendar
+     </Button>
+
+
     </div>
 
-    
+
   );
 };
 

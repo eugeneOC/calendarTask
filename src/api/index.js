@@ -6,7 +6,7 @@ const api = axios.create({
 
 
 api.interceptors.request.use(config => {
-  const token ="bVuqKL8TxAOfXLre2urhppXXXDDp2Gvt2oFiFOUJwLh3d6y0G3IU8RCBPVDhKUAg";
+  const token ="HxBWXDQvnEJ86lj9NF9UxHH8vFTPARWjWJUOzHU2XF6T5wwJ9gEkQoPbpMLIOTEd";
   config.url = `${config.url}?access_token=${token}`;
   return config;
 });

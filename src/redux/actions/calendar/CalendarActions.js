@@ -98,5 +98,9 @@ export const getEventFailure = err => ({
   payload: err
 });
 
+export const setParticipants = item => ({
+  type: types.SET_PARTICIPANTS,
+  payload: item
+});
 
 // export const filterChange
